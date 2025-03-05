@@ -1,8 +1,8 @@
 package com.github.losevskiyfz.domain;
 
-public class Rock extends Entity{
+public class EmptyEntity extends Entity {
     @Override
     public String toString() {
-        return "🪨";
+        return " ";
     }
 }

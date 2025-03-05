@@ -1,13 +1,16 @@
 package com.github.losevskiyfz.map;
 
 import com.github.losevskiyfz.domain.Entity;
-import com.github.losevskiyfz.domain.Herbivore;
 
 public class Cell {
-    private Entity entity = new Herbivore();
+    private Entity entity;
 
     @Override
     public String toString() {
         return entity.toString();
+    }
+
+    public void setEntity(Entity entity) {
+        this.entity = entity;
     }
 }
