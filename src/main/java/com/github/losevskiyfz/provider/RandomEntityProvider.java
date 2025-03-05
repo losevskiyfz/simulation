@@ -13,12 +13,12 @@ public class RandomEntityProvider {
     private static final Random RANDOM = new Random();
 
     public RandomEntityProvider() {
-        addEntity(Tree.class, 0.0125);
-        addEntity(Rock.class, 0.0125);
-        addEntity(Grass.class, 0.025);
-        addEntity(Herbivore.class, 0.025);
-        addEntity(Predator.class, 0.025);
-        addEntity(EmptyEntity.class, 0.9);
+        addEntity(Tree.class, 0.01);
+        addEntity(Rock.class, 0.01);
+        addEntity(Grass.class, 0.01);
+        addEntity(Herbivore.class, 0.01);
+        addEntity(Predator.class, 0.01);
+        addEntity(EmptyEntity.class, 0.95);
         entityProbability = Collections.unmodifiableNavigableMap(entityProbability);
     }
 
