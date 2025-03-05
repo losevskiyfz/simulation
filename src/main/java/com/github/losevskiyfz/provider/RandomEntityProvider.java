@@ -1,6 +1,8 @@
 package com.github.losevskiyfz.provider;
 
 import com.github.losevskiyfz.domain.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.NavigableMap;
@@ -8,6 +10,7 @@ import java.util.Random;
 import java.util.TreeMap;
 
 public class RandomEntityProvider {
+    private final Logger log = LoggerFactory.getLogger(RandomEntityProvider.class);
     private double totalProbability = 0.0;
     private NavigableMap<Double,Class<? extends Entity>> entityProbability = new TreeMap<>();
     private static final Random RANDOM = new Random();
@@ -33,7 +36,8 @@ public class RandomEntityProvider {
         try {
             return entityProbability.ceilingEntry(value).getValue().getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("EmptyEntity will be returned.\n{}", e.getMessage());
+            return new EmptyEntity();
         }
     }
 }
