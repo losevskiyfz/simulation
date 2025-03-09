@@ -6,12 +6,15 @@ import com.github.losevskiyfz.gui.Simulation;
 import com.github.losevskiyfz.map.Cell;
 import com.github.losevskiyfz.map.Map;
 import com.github.losevskiyfz.route.AStarPathFinder;
-import com.github.losevskiyfz.route.Router;
+import com.github.losevskiyfz.route.PathFinder;
 
 import java.util.HashMap;
 
 
 public class MakeMoveAction implements Action {
+
+    private PathFinder pathFinder = new AStarPathFinder();
+
     @Override
     public void doAction(Map map) {
         Simulation.incrementMoveCounter();
@@ -25,7 +28,7 @@ public class MakeMoveAction implements Action {
         for (java.util.Map.Entry<Cell, Entity> entry : entityRegistry.entrySet()) {
             Cell key = entry.getKey();
             if (entityRegistry.get(key) instanceof Creature creature) {
-                creature.makeMove(Router.findPath(new AStarPathFinder(), map.getGrid(), key, creature.getTarget()));
+                creature.makeMove(pathFinder.findPath(map.getGrid(), key, creature.getTarget()));
             }
         }
     }
