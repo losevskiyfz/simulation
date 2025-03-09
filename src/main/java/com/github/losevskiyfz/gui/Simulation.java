@@ -84,7 +84,7 @@ public class Simulation extends JFrame {
     }
 
     public void pauseSimulation() {
-        asyncTasks.forEach(Timer::stop);
+        SwingUtilities.invokeLater(() -> asyncTasks.forEach(Timer::stop));
     }
 
     private static class Renderer {

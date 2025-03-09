@@ -4,8 +4,8 @@ import com.github.losevskiyfz.map.Cell;
 
 import java.util.*;
 
-public class Bfs {
-    public static List<Cell> findPath(Cell[][] grid, Cell searchFrom, Class<?> target) {
+public class BfsPathFinder implements PathFinder {
+    public List<Cell> findPath(Cell[][] grid, Cell searchFrom, Class<?> target) {
         Cell start = grid[searchFrom.x][searchFrom.y];
 
         Queue<Cell> queue = new LinkedList<>();
