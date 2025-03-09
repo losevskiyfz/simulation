@@ -1,31 +1,33 @@
 package com.github.losevskiyfz.map;
 
-import com.github.losevskiyfz.provider.RandomEntityProvider;
+import com.github.losevskiyfz.domain.EmptyEntity;
 
 public class Map {
-
-    private Cell[][] cells;
-    private final RandomEntityProvider randomEntityProvider = new RandomEntityProvider();
+    private final Cell[][] grid;
 
     public Map(Integer cols, Integer rows) {
-        cells = new Cell[cols][rows];
+        grid = new Cell[cols][rows];
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
-                cells[x][y] = new Cell();
-                cells[x][y].setEntity(randomEntityProvider.getRandomEntity());
+                grid[x][y] = new Cell(x, y);
+                grid[x][y].setEntity(new EmptyEntity());
             }
         }
     }
 
     public int getCols() {
-        return cells.length;
+        return grid.length;
     }
 
     public int getRows() {
-        return cells[0].length;
+        return grid[0].length;
     }
 
     public Cell getCell(int col, int row) {
-        return cells[col][row];
+        return grid[col][row];
+    }
+
+    public Cell[][] getGrid() {
+        return grid;
     }
 }

@@ -16,12 +16,12 @@ public class RandomEntityProvider {
     private static final Random RANDOM = new Random();
 
     public RandomEntityProvider() {
-        addEntity(Tree.class, 0.01);
-        addEntity(Rock.class, 0.01);
         addEntity(Grass.class, 0.01);
-        addEntity(Herbivore.class, 0.01);
-        addEntity(Predator.class, 0.01);
-        addEntity(EmptyEntity.class, 0.95);
+        addEntity(Herbivore.class, 0.005);
+        addEntity(Predator.class, 0.001);
+        addEntity(Tree.class, 0.001);
+        addEntity(Rock.class, 0.001);
+        addEntity(EmptyEntity.class, 0.982);
         entityProbability = Collections.unmodifiableNavigableMap(entityProbability);
     }
 
@@ -34,7 +34,10 @@ public class RandomEntityProvider {
     public Entity getRandomEntity() {
         double value = RANDOM.nextDouble() * totalProbability;
         try {
-            return entityProbability.ceilingEntry(value).getValue().getDeclaredConstructor().newInstance();
+            return entityProbability.ceilingEntry(value)
+                    .getValue()
+                    .getDeclaredConstructor()
+                    .newInstance();
         } catch (Exception e) {
             log.error("EmptyEntity will be returned.\n{}", e.getMessage());
             return new EmptyEntity();

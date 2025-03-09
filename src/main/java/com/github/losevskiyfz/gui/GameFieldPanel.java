@@ -42,7 +42,7 @@ public class GameFieldPanel extends JPanel {
                 int x = offsetX + col * cellSize;
                 int y = offsetY + row * cellSize;
                 drawCell(x, y, cellSize, g2d);
-                addEntityInCell(x, y, cellSize, map.getCell(col, row).toString(), g2d);
+                addEntityInCell(x, y, cellSize, map.getCell(col, row).getEntity().getView(), g2d);
             }
         }
     }
