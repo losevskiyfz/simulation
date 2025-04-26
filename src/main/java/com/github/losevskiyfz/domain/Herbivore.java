@@ -9,4 +9,9 @@ public class Herbivore extends Creature {
     public void reduceHealth(int damage) {
         hp -= damage;
     }
+
+    @Override
+    public boolean isPassable() {
+        return false;
+    }
 }

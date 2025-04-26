@@ -7,4 +7,17 @@ public class Predator extends Creature {
     public String view() {
         return "🐺";
     }
+
+    @Override
+    public boolean isPassable() {
+        return false;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
 }

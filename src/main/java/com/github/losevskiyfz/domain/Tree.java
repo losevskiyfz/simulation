@@ -5,4 +5,9 @@ public class Tree extends Entity{
     public String view() {
         return "🌳";
     }
+
+    @Override
+    public boolean isPassable() {
+        return false;
+    }
 }
