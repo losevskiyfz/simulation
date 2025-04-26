@@ -1,5 +1,5 @@
 package com.github.losevskiyfz.path;
 
 public interface Passable {
-    boolean isTransient();
+    boolean isPassable();
 }

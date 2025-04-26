@@ -7,7 +7,7 @@ public class EmptyEntity extends Entity {
     }
 
     @Override
-    public boolean isTransient(){
+    public boolean isPassable(){
         return true;
     }
 }

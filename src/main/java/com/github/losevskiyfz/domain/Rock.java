@@ -7,7 +7,7 @@ public class Rock extends Entity{
     }
 
     @Override
-    public boolean isTransient() {
+    public boolean isPassable() {
         return false;
     }
 }

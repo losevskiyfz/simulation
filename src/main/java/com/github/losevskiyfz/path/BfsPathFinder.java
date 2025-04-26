@@ -12,13 +12,13 @@ public class BfsPathFinder<T extends Passable> implements PathFinder<T> {
         Set<Point> visited = new HashSet<>();
         Map<Point, Point> paths = new HashMap<>();
 
-        if (!map.get(start).isTransient()) throw new IllegalArgumentException();
+        if (!map.get(start).isPassable()) throw new IllegalArgumentException();
         queue.add(start);
         while (!queue.isEmpty()) {
             Point p = queue.poll();
             for (Point neighbour : getNeighbourPoints(map, p)) {
                 if (visited.contains(neighbour)) continue;
-                if (map.get(neighbour).isTransient()) {
+                if (map.get(neighbour).isPassable()) {
                     queue.add(neighbour);
                     visited.add(neighbour);
                     paths.put(neighbour, p);

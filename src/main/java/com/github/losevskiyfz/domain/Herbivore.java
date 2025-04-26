@@ -11,7 +11,7 @@ public class Herbivore extends Creature {
     }
 
     @Override
-    public boolean isTransient() {
+    public boolean isPassable() {
         return false;
     }
 }

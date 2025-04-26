@@ -9,7 +9,7 @@ public class Predator extends Creature {
     }
 
     @Override
-    public boolean isTransient() {
+    public boolean isPassable() {
         return false;
     }
 
