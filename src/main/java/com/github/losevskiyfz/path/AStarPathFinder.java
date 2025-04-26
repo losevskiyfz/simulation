@@ -12,7 +12,6 @@ public class AStarPathFinder<T extends Passable> implements PathFinder<T> {
         Set<Point> visited = new HashSet<>();
 
         if (goals.contains(start)) return List.of(start);
-        if (!map.get(start).isPassable()) return List.of();
         if (goals.isEmpty()) return List.of();
 
         queue.add(new Node(start, 0, minManhattan(start, goals), null));
@@ -63,8 +62,8 @@ public class AStarPathFinder<T extends Passable> implements PathFinder<T> {
 
     private List<Point> goals(com.github.losevskiyfz.map.Map<T> map, Class<? extends T> target) {
         List<Point> targets = new LinkedList<>();
-        for (int i = 0; i < map.rows(); i++) {
-            for (int j = 0; j < map.cols(); j++) {
+        for (int i = 0; i < map.cols(); i++) {
+            for (int j = 0; j < map.rows(); j++) {
                 if (target.isInstance(map.get(new Point(i, j)))) {
                     targets.add(new Point(i, j));
                 }

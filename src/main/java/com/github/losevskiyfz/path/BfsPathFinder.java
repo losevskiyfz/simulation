@@ -11,7 +11,6 @@ public class BfsPathFinder<T extends Passable> implements PathFinder<T> {
         Set<Point> visited = new HashSet<>();
 
         if (target.isInstance(map.get(start))) return List.of(start);
-        if (!map.get(start).isPassable()) return List.of();
 
         queue.add(new Node(start, null));
         visited.add(start);
