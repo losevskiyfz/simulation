@@ -17,14 +17,14 @@ public class Map<T> {
     }
 
     public T get(Point point) {
-        if (point.x < 0 || point.x >= cols || point.y < 0 || point.y >= rows) {
+        if (point.x() < 0 || point.x() >= cols || point.y() < 0 || point.y() >= rows) {
             throw new IllegalArgumentException();
         }
         return grid.get(point);
     }
 
     public void put(Point point, T value) {
-        if (point.x < 0 || point.x >= cols || point.y < 0 || point.y >= rows) {
+        if (point.x() < 0 || point.x() >= cols || point.y() < 0 || point.y() >= rows) {
             throw new IllegalArgumentException();
         }
         grid.put(point, value);
