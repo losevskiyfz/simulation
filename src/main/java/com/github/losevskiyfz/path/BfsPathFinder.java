@@ -38,17 +38,17 @@ public class BfsPathFinder<T extends Passable> implements PathFinder<T> {
 
     private List<Point> neighbourPoints(com.github.losevskiyfz.map.Map<T> map, Point point) {
         List<Point> neighbours = new LinkedList<>();
-        if (point.x + 1 < map.cols()) {
-            neighbours.add(new Point(point.x + 1, point.y));
+        if (point.x() + 1 < map.cols()) {
+            neighbours.add(new Point(point.x() + 1, point.y()));
         }
-        if ((point.x - 1) >= 0) {
-            neighbours.add(new Point(point.x - 1, point.y));
+        if ((point.x() - 1) >= 0) {
+            neighbours.add(new Point(point.x() - 1, point.y()));
         }
-        if (point.y + 1 < map.rows()) {
-            neighbours.add(new Point(point.x, point.y + 1));
+        if (point.y() + 1 < map.rows()) {
+            neighbours.add(new Point(point.x(), point.y() + 1));
         }
-        if ((point.y - 1) >= 0) {
-            neighbours.add(new Point(point.x, point.y - 1));
+        if ((point.y() - 1) >= 0) {
+            neighbours.add(new Point(point.x(), point.y() - 1));
         }
         return neighbours;
     }
