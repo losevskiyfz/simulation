@@ -4,22 +4,24 @@ import com.github.losevskiyfz.map.Point;
 
 import java.util.*;
 
-public class BfsPathFinder<T extends Passable> implements PathFinder<T> {
+public class AStarPathFinder<T extends Passable> implements PathFinder<T> {
     @Override
     public List<Point> findPath(com.github.losevskiyfz.map.Map<T> map, Point start, Class<? extends T> target) {
-        Queue<Node> queue = new LinkedList<>();
+        List<Point> goals = goals(map, target);
+        Queue<Node> queue = new PriorityQueue<>();
         Set<Point> visited = new HashSet<>();
 
-        if (target.isInstance(map.get(start))) return List.of(start);
+        if (goals.contains(start)) return List.of(start);
         if (!map.get(start).isPassable()) return List.of();
+        if (goals.isEmpty()) return List.of();
 
-        queue.add(new Node(start, null));
+        queue.add(new Node(start, 0, minManhattan(start, goals), null));
         visited.add(start);
         while (!queue.isEmpty()) {
             Node n = queue.poll();
             for (Point neighbour : neighbourPoints(map, n.point)) {
                 if (visited.contains(neighbour)) continue;
-                Node neighbourNode = new Node(neighbour, n);
+                Node neighbourNode = new Node(neighbour, n.g + 1, minManhattan(neighbour, goals), n);
                 if (target.isInstance(map.get(neighbour))) {
                     return constructPathToRoot(neighbourNode);
                 }
@@ -59,13 +61,49 @@ public class BfsPathFinder<T extends Passable> implements PathFinder<T> {
         return path;
     }
 
-    static class Node{
+    private List<Point> goals(com.github.losevskiyfz.map.Map<T> map, Class<? extends T> target) {
+        List<Point> targets = new LinkedList<>();
+        for (int i = 0; i < map.rows(); i++) {
+            for (int j = 0; j < map.cols(); j++) {
+                if (target.isInstance(map.get(new Point(i, j)))) {
+                    targets.add(new Point(i, j));
+                }
+            }
+        }
+        return targets;
+    }
+
+    private int minManhattan(Point p, List<Point> goals) {
+        return goals.stream()
+                .mapToInt(goal -> manhattan(p, goal))
+                .min()
+                .orElse(Integer.MAX_VALUE);
+    }
+
+    private int manhattan(Point p1, Point p2) {
+        return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
+    }
+
+    static class Node implements Comparable<Node> {
         Point point;
+        int g;
+        int h;
         Node parent;
 
-        Node(Point point, Node parent) {
+        Node(Point point, int g, int h, Node parent) {
             this.point = point;
+            this.g = g;
+            this.h = h;
             this.parent = parent;
+        }
+
+        int f() {
+            return g + h;
+        }
+
+        @Override
+        public int compareTo(Node other) {
+            return Integer.compare(this.f(), other.f());
         }
     }
 }
