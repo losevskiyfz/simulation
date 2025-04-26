@@ -1,12 +1,17 @@
 package com.github.losevskiyfz.path;
 
 import com.github.losevskiyfz.map.Point;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
 public class BfsPathFinder<T extends Passable> implements PathFinder<T> {
+    private static final Logger LOG = LogManager.getLogger(BfsPathFinder.class);
+
     @Override
     public List<Point> findPath(com.github.losevskiyfz.map.Map<T> map, Point start, Class<? extends T> target) {
+        LOG.info("Finding path with BFS from {} to {}", start, target);
         Queue<Node> queue = new LinkedList<>();
         Set<Point> visited = new HashSet<>();
 

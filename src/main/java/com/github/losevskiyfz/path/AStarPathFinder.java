@@ -1,12 +1,19 @@
 package com.github.losevskiyfz.path;
 
+import com.github.losevskiyfz.domain.Predator;
 import com.github.losevskiyfz.map.Point;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
 public class AStarPathFinder<T extends Passable> implements PathFinder<T> {
+    private static final Logger LOG = LogManager.getLogger(AStarPathFinder.class);
+
     @Override
     public List<Point> findPath(com.github.losevskiyfz.map.Map<T> map, Point start, Class<? extends T> target) {
+        LOG.info("A* pathfinding started. Start: {}. Target: {}", start, target);
+
         List<Point> goals = goals(map, target);
         Queue<Node> queue = new PriorityQueue<>();
         Set<Point> visited = new HashSet<>();

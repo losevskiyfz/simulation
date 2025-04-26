@@ -8,6 +8,8 @@ import com.github.losevskiyfz.domain.*;
 import com.github.losevskiyfz.map.Point;
 import com.github.losevskiyfz.provider.EntityProvider;
 import com.github.losevskiyfz.provider.RandomEntityProvider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Simulation extends JFrame {
+    private static final Logger LOG = LogManager.getLogger(Simulation.class);
+
     private final int mapCols = 50;
     private final int mapRows = 25;
     private long moveCounter = 0;
@@ -39,6 +43,7 @@ public class Simulation extends JFrame {
     private final JPanel playStopPanel = new PlayStopPanel(this);
 
     private void init() {
+        LOG.info("Initializing simulation.");
         initializeActions();
         runInitActions();
         add(gameFieldPanel, BorderLayout.CENTER);
@@ -52,11 +57,13 @@ public class Simulation extends JFrame {
     }
 
     private void initializeActions() {
+        LOG.info("Initializing actions.");
         initActions.add(new MaintainAction(entityProvider));
         turnActions.add(new MakeMoveAction());
     }
 
     private void runInitActions() {
+        LOG.info("Running init actions.");
         for (int i = 0; i < 3; i++) {
             for (Action<Entity> action : initActions) {
                 action.act(map);
@@ -70,13 +77,16 @@ public class Simulation extends JFrame {
     }
 
     public void nextTurn() {
+        LOG.info("Next turn. Move counter: {}", moveCounter);
         for (Action<Entity> action : turnActions) {
             action.act(map);
+            LOG.info("Rerendering game field.");
             renderer.rerender(gameFieldPanel);
         }
     }
 
     public void run() {
+        LOG.info("Running simulation.");
         SwingUtilities.invokeLater(this::init);
         SwingUtilities.invokeLater(this::startSimulation);
     }
@@ -86,10 +96,12 @@ public class Simulation extends JFrame {
     }
 
     private void addAsyncTasks() {
-        Timer t1 = new Timer(500, event -> {
+        LOG.info("Adding async tasks.");
+        Timer t1 = new Timer(500, _ -> {
+            incrementMoveCounter();
             nextTurn();
         });
-        Timer t2 = new Timer(15_000, event -> {
+        Timer t2 = new Timer(15_000, _ -> {
             runInitActions();
         });
         asyncTasks.add(t1);
@@ -97,6 +109,7 @@ public class Simulation extends JFrame {
     }
 
     public void pauseSimulation() {
+        LOG.info("Pausing simulation.");
         SwingUtilities.invokeLater(() -> asyncTasks.forEach(Timer::stop));
     }
 
