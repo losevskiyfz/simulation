@@ -8,8 +8,8 @@ public class PlayStopPanel extends JPanel {
     JButton stopButton = new JButton("⏹");
 
     PlayStopPanel(Simulation simulation) {
-        playButton.addActionListener(e -> simulation.startSimulation());
-        stopButton.addActionListener(e -> simulation.pauseSimulation());
+        playButton.addActionListener(_ -> simulation.startSimulation());
+        stopButton.addActionListener(_ -> simulation.pauseSimulation());
         add(playButton);
         add(stopButton);
     }
