@@ -1,12 +1,17 @@
 package com.github.losevskiyfz.path;
 
 import com.github.losevskiyfz.map.Point;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
 public class BfsPathFinder<T extends Passable> implements PathFinder<T> {
+    private static final Logger LOG = LogManager.getLogger(BfsPathFinder.class);
+
     @Override
     public List<Point> findPath(com.github.losevskiyfz.map.Map<T> map, Point start, Class<? extends T> target) {
+        LOG.info("Finding path with BFS from {} to {}", start, target);
         Queue<Node> queue = new LinkedList<>();
         Set<Point> visited = new HashSet<>();
 
@@ -33,17 +38,17 @@ public class BfsPathFinder<T extends Passable> implements PathFinder<T> {
 
     private List<Point> neighbourPoints(com.github.losevskiyfz.map.Map<T> map, Point point) {
         List<Point> neighbours = new LinkedList<>();
-        if (point.x + 1 < map.cols()) {
-            neighbours.add(new Point(point.x + 1, point.y));
+        if (point.x() + 1 < map.cols()) {
+            neighbours.add(new Point(point.x() + 1, point.y()));
         }
-        if ((point.x - 1) >= 0) {
-            neighbours.add(new Point(point.x - 1, point.y));
+        if ((point.x() - 1) >= 0) {
+            neighbours.add(new Point(point.x() - 1, point.y()));
         }
-        if (point.y + 1 < map.rows()) {
-            neighbours.add(new Point(point.x, point.y + 1));
+        if (point.y() + 1 < map.rows()) {
+            neighbours.add(new Point(point.x(), point.y() + 1));
         }
-        if ((point.y - 1) >= 0) {
-            neighbours.add(new Point(point.x, point.y - 1));
+        if ((point.y() - 1) >= 0) {
+            neighbours.add(new Point(point.x(), point.y() - 1));
         }
         return neighbours;
     }
