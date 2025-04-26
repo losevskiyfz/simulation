@@ -18,7 +18,7 @@ import java.util.Random;
  * @author Fyodor Losevksiy
  * @version 1.0
  */
-public class RandomProvider<T> {
+public class RandomEntityProvider<T> {
     private final Map<T, Integer> ratings = new HashMap<>();
     private final Random rand = new Random();
 
