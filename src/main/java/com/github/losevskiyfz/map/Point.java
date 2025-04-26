@@ -1,4 +1,4 @@
-package map;
+package com.github.losevskiyfz.map;
 
 public class Point {
     public final int x;

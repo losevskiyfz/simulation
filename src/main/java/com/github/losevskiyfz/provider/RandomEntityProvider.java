@@ -1,4 +1,4 @@
-package provider;
+package com.github.losevskiyfz.provider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +18,7 @@ import java.util.Random;
  * @author Fyodor Losevksiy
  * @version 1.0
  */
-public class RandomEntityProvider<T> {
+public class RandomEntityProvider<T> implements EntityProvider<T>{
     private final Map<T, Integer> ratings = new HashMap<>();
     private final Random rand = new Random();
 
@@ -27,6 +27,7 @@ public class RandomEntityProvider<T> {
         ratings.put(entity, rate);
     }
 
+    @Override
     public T get() {
         if (ratings.isEmpty()) {
             throw new IllegalStateException();

@@ -1,4 +1,4 @@
-package map;
+package com.github.losevskiyfz.map;
 
 import java.util.HashMap;
 
@@ -28,5 +28,13 @@ public class Map<T> {
             throw new IllegalArgumentException();
         }
         grid.put(point, value);
+    }
+
+    public int cols(){
+        return cols;
+    }
+
+    public int rows(){
+        return rows;
     }
 }
